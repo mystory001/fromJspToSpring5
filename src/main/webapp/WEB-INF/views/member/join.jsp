@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입</title>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -44,26 +44,26 @@
 <!-- 본문내용 -->
 <article>
 <h1>Join Us</h1>
-<form action="" id="join">
+<form action="${pageContext.request.contextPath}/member/insertPro" id="join" method="post">
 <fieldset>
-<legend>Basic Info</legend>
+<legend>필수정보</legend>
 <label>User ID</label>
 <input type="text" name="id" class="id">
-<input type="button" value="dup. check" class="dup"><br>
+<input type="button" value="중복확인" class="dup"><br>
 <label>Password</label>
-<input type="password" name="pass"><br>
-<label>Retype Password</label>
-<input type="password" name="pass2"><br>
+<input type="password" name="pw"><br>
+<label>Password 확인</label>
+<input type="password"><br>
 <label>Name</label>
 <input type="text" name="name"><br>
-<label>E-Mail</label>
-<input type="email" name="email"><br>
-<label>Retype E-Mail</label>
-<input type="email" name="email2"><br>
 </fieldset>
 
 <fieldset>
-<legend>Optional</legend>
+<legend>선택정보</legend>
+<label>E-Mail</label>
+<input type="email" name="email"><br>
+<label>E-Mail 확인</label>
+<input type="email" name="email2"><br>
 <label>Address</label>
 <input type="text" name="address"><br>
 <label>Phone Number</label>
@@ -73,8 +73,8 @@
 </fieldset>
 <div class="clear"></div>
 <div id="buttons">
-<input type="button" value="Submit" class="submit">
-<input type="button" value="Cancel" class="cancel">
+<input type="submit" value="가입하기" class="submit">
+<input type="reset" value="취소하기" class="cancel">
 </div>
 </form>
 </article>

@@ -2,65 +2,24 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-		<!-- 
-	데이터베이스 연결 객체 생성 
-	 프로그램 설치
-	 → 자동으로 프로그램 설치 Maven 의존
-	 → Maven 서버에 프로그램이 저장되어 있고 다운받고자 하는 프로그램 이름을 적으면 다운받아서 사용 
-	 → 프로그램 맨 아래 pom.xml(다운받고 싶은 프로그램 목록을 적음)
-	 → 웹 maven repository 검색
-	 → https://mvnrepository.com/에서 mysql 검색 
-	 → 중간에 Maven 코드 복사
-	 → pom.xml에 코드 붙여넣기 
-	 → https://mvnrepository.com/에서 Spring JDBC 검색
-	 → 버전 수정 <version>${org.springframework-version}</version> -->
-	
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="com.mysql.cj.jdbc.Driver" />
-		<property name="url"
-			value="jdbc:mysql://localhost:3306/jspdb1?serverTimezone=Asia/Seoul" />
-		<property name="username" value="root" />
-		<property name="password" value="1234" />
-	</bean>
-	
-	<!-- 
-	pom.xml에서 mybatis 프로그램 설치 
-	→ root-context.xml에 mybatis 설정, 객체 생성
-	→ https://blog.mybatis.org/
-	→ https://mybatis.org/mybatis-3/
-	→ https://mybatis.org/mybatis-3/getting-started.html
-	→ src/main/resources 폴더에 XML 파일 생성 mybatis-config.xml 파일 생성
-	→ src/main/resources 폴더에 mapper폴더 생성(SQL 폴더)
-	→ memberMapper.xml 파일 만들기
-	-->
-	<!-- 객체 생성<bean) -->
-<!-- 	<bean id="sqlSessionFactory" -->
-<!-- 		class="org.mybatis.spring.SqlSessionFactoryBean"> -->
-			<!-- property : 속성값(멤버변수를 속성이라고함) ref="참조변수명" --> 
-<!-- 		<property name="dataSource" ref="dataSource" /> -->
- 			<!-- value=경로/환경설정파일의 위치 --> 
-<!-- 		<property name="configLocation" -->
-<!-- 			value="classpath:/mybatis-config.xml" /> -->
-	 		<!-- value=경로/sqlmapper 파일 위치 --> 
-<!-- 		<property name="mapperLocations" -->
-<!-- 			value="classpath:mappers/**/*Mapper.xml" /> -->
-<!-- 	</bean> -->
 
-	<!-- 
-	→ mybatis 사용(연결정보) 객체 생성
-	→ destroy-method="clearCache" 기억장소 삭제
-	→ MemberDAO에서 자동 객체 생성
-	@Inject
-	private sqlSession sqlSession;	 
-	-->
-<!-- 	<bean id="sqlSession" -->
-<!-- 		class="org.mybatis.spring.SqlSessionTemplate" -->
-<!-- 		destroy-method="clearCache"> -->
-<!-- 		<constructor-arg name="sqlSessionFactory" -->
-<!-- 			ref="sqlSessionFactory" /> -->
-<!-- 	</bean> -->
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/jspdb1?serverTimezone=Asia/Seoul"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="1234"></property>
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
 </beans>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>member/update.jsp</title>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -25,6 +25,8 @@
 <body>
 <div id="wrap">
 <!-- 헤더들어가는 곳 -->
+<!-- include 경로 => jsp 문법 => 상대적인 웹경로 적용 
+     현파일을 기준으로 상대적으로 경로를 표시 -->
 <jsp:include page="../inc/top.jsp" />
 <!-- 헤더들어가는 곳 -->
 
@@ -42,19 +44,33 @@
 <!-- 왼쪽메뉴 -->
 <!-- 본문내용 -->
 <article>
-<h1>Login</h1>
-<form action="${pageContext.request.contextPath}/member/loginPro" id="join" method="post">
+<h1>Update Us</h1>
+<form action="${pageContext.request.contextPath}/member/updatePro" id="join" method="post">
 <fieldset>
-<legend>Login Info</legend>
+<legend>Basic Info</legend>
 <label>User ID</label>
-<input type="text" name="id"><br>
+<input type="text" name="id" class="id" value="${memberDTO.id }" readonly><br>
 <label>Password</label>
-<input type="password" name="pass"><br>
+<input type="password" name="pw"><br>
+<label>Name</label>
+<input type="text" name="name" value="${memberDTO.name }"><br>
+</fieldset>
+
+<fieldset>
+<legend>Optional</legend>
+<label>E-Mail</label>
+<input type="email" name="email"><br>
+<label>Address</label>
+<input type="text" name="address"><br>
+<label>Phone Number</label>
+<input type="text" name="phone"><br>
+<label>Mobile Phone Number</label>
+<input type="text" name="mobile"><br>
 </fieldset>
 <div class="clear"></div>
 <div id="buttons">
-<input type="submit" value="로그인" class="submit">
-<input type="reset" value="취소" class="cancel">
+<input type="submit" value="수정" class="submit">
+<input type="reset" value="Cancel" class="cancel">
 </div>
 </form>
 </article>

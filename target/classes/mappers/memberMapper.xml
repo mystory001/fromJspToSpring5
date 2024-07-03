@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mystory001.mappers.memberMapper">
+<!-- namespace="com.mystory001.mappers.memberMappers" 
+     → memberMapper.xml 파일 
+     → xml 파일이름 -->
+
+	<!-- 
+	id="insertMember" sql 구문이름
+	기존 ? 대신 DTO의 멤버변수 이름 작성 #{변수명}. #{} 멤버변수를 뜻함
+	 -->
+	 
+	 <insert id="insertMember">
+	 	insert into members(id,pw,name,date)
+	 	values(#{id},#{pw},#{name},#{date})
+	 </insert>
+	 
+	 <select id="userCheck" resultType="com.mystory001.domain.MemberDTO"> <!-- select 구문은 결과값이 有, resultType에 결과형을 지정 -->
+	 	select * from members
+	 	where id = #{id} and pw = #{pw}
+	 </select>
+	 
+	 <select id="getMember" resultType="com.mystory001.domain.MemberDTO">
+	 	select * from members
+	 	where id = #{id}
+	 </select>
+	 
+	 <update id="updateMember">
+	 	update members
+	 	set name = #{name}
+	 	where id = #{id}
+	 </update>
+	 	 
+</mapper>
