@@ -49,7 +49,7 @@
 <label>User ID</label>
 <input type="text" name="id"><br>
 <label>Password</label>
-<input type="password" name="pass"><br>
+<input type="password" name="pw"><br>
 </fieldset>
 <div class="clear"></div>
 <div id="buttons">
