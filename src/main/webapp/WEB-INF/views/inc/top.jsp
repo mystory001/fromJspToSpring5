@@ -17,10 +17,10 @@
 <!-- 로고들어가는 곳 -->
 <nav id="top_menu">
 <ul>
-	<li><a href="../main/main">HOME</a></li>
+	<li><a href="${pageContext.request.contextPath }/member/main">HOME</a></li>
 	<li><a href="../company/welcome">COMPANY</a></li>
 	<li><a href="#">SOLUTIONS</a></li>
-	<li><a href="../center/notice.html">CUSTOMER CENTER</a></li>
+	<li><a href="${pageContext.request.contextPath }/board/list">CUSTOMER CENTER</a></li>
 	<li><a href="#">CONTACT US</a></li>
 </ul>
 </nav>
