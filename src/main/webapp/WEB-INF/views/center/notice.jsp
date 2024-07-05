@@ -62,7 +62,7 @@
 	<td class="left">${boardDTO.subject}</td>
     <td>${boardDTO.name}</td>
     <td><fmt:formatDate value="${boardDTO.date}" pattern="yyyy-MM-dd"/></td>
-    <td>${boardDTO.readcount}</td></tr>
+    <td>${boardDTO.readCount}</td></tr>
 </c:forEach>
 </table>
 
@@ -78,9 +78,12 @@
 </c:if>
 
 <div id="table_search">
+<form action="${pageContext.request.contextPath}/board/list" method="get">
 <input type="text" name="search" class="input_box">
 <input type="button" value="search" class="btn">
+</form>
 </div>
+
 <div class="clear"></div>
 <div id="page_control">
 <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
@@ -94,7 +97,6 @@
 <c:if test="${pageDTO.endPage < pageDTO.pageCount}">
 <a href="${pageContext.request.contextPath}/board/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">Next</a>
 </c:if>
-
 </div>
 </article>
 <!-- 게시판 -->

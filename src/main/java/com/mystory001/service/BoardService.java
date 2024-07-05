@@ -48,16 +48,16 @@ public class BoardService {
 		return boardDAO.getBoard(boardDTO);
 	}
 
-	public void updateReadCount(BoardDTO boardDTO) {
-		System.out.println("BoardService updateReadCount()");
-		int readCount = boardDTO.getReadCount() + 1;
-		boardDAO.updateReadCount(boardDTO);
-	}
-
 	public int getBoardCount(PageDTO pageDTO) {
 		System.out.println("BoardService getBoardCount()");
 		return boardDAO.getBoardCount(pageDTO);
 	}
 	
-
+	public void updateReadCount(BoardDTO boardDTO) {
+		System.out.println("BoardService updateReadCount()");
+		int readCount = boardDTO.getReadCount() + 1;
+		boardDTO.setReadCount(readCount);
+		boardDAO.updateReadCount(boardDTO);
+	}
+	
 }

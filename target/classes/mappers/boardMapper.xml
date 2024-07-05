@@ -9,15 +9,16 @@
 		values(#{num},#{name},#{subject},#{content},#{readCount},#{date})
 	</insert>
 
-	<select id="getBoardList" resultType="com.mystory001.domain.PageDTO">
-		select * from board
+	<select id="getBoardList" resultType="com.mystory001.domain.BoardDTO">
+		select * 
+		from board
 		order by num desc
 		limit #{startRow}, #{pageSize}
 	</select>
 	
-<!-- 	<select id="getMaxNum" resultType="java.lang.Integer"> -->
-<!-- 		select max(num) from board -->
-<!-- 	</select> -->
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		select max(num) from board
+	</select>
 	
 	<select id="getBoard" resultType="com.mystory001.domain.BoardDTO">
 		select * from board where num = #{num}

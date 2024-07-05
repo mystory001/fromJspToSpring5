@@ -27,7 +27,7 @@ public class BoardController {
 		System.out.println("BoardController list()");
 		
 		//한 화면에 보여줄 글의 개수 설정
-		int pageSize = 15;
+		int pageSize = 5;
 		//pageNum에 파라미터 값을 가져오기
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum==null) {
@@ -67,7 +67,7 @@ public class BoardController {
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
 
-		model.addAttribute("boardList",boardList);
+		model.addAttribute("pageDTO",pageDTO);
 		model.addAttribute("boardList",boardList);
 		
 		return "center/notice";
@@ -90,11 +90,10 @@ public class BoardController {
 	
 	@GetMapping("/content")
 	public String context(BoardDTO boardDTO, Model model) {
-		System.out.println("BoardController context()");
+		System.out.println("BoardController content()");
 		boardDTO = boardService.getBoard(boardDTO);
 		//조회수 증가
 		boardService.updateReadCount(boardDTO);
-		
 		model.addAttribute("boardDTO",boardDTO);
 		return "center/content";
 	}
