@@ -10,6 +10,14 @@ public class BoardDTO {
 	private String content;
 	private int readCount;
 	private Timestamp date;
+	private String file;
+	
+	//alt + shift + s : s
+	@Override
+	public String toString() {
+		return "BoardDTO [num=" + num + ", name=" + name + ", subject=" + subject + ", content=" + content
+				+ ", readCount=" + readCount + ", date=" + date + ", file=" + file + "]";
+	}
 
 	public int getNum() {
 		return num;
@@ -46,6 +54,12 @@ public class BoardDTO {
 	}
 	public void setDate(Timestamp date) {
 		this.date = date;
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
 	}
 	
 }

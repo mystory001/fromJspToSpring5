@@ -59,5 +59,16 @@ public class BoardService {
 		boardDTO.setReadCount(readCount);
 		boardDAO.updateReadCount(boardDTO);
 	}
+
+	public void updateBoard(BoardDTO boardDTO) {
+		System.out.println("BoardService updateBoard()");
+		boardDAO.updateBoard(boardDTO);
+		
+	}
+
+	public void deleteBoard(BoardDTO boardDTO) {
+		System.out.println("BoardService deleteBoard()");
+		boardDAO.deleteBoard(boardDTO);
+	}
 	
 }

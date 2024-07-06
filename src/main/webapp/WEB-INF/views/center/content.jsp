@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/content.jsp</title>
+<title>center/content</title>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -35,14 +35,7 @@
 <!-- 메인이미지 -->
 
 <!-- 왼쪽메뉴 -->
-<nav id="sub_menu">
-<ul>
-<li><a href="#">Notice</a></li>
-<li><a href="#">Public News</a></li>
-<li><a href="#">Driver Download</a></li>
-<li><a href="#">Service Policy</a></li>
-</ul>
-</nav>
+<jsp:include page="../inc/left.jsp" />
 <!-- 왼쪽메뉴 -->
 
 <!-- 게시판 -->
@@ -64,11 +57,8 @@
 		<input type="button" value="글삭제" class="btn" onclick="location.href='${pageContext.request.contextPath}/board/delete?num=${boardDTO.num}'">
 	</c:if>
 </c:if>
-
 <input type="button" value="글목록" class="btn" onclick="location.href='${pageContext.request.contextPath}/board/list'">
-
 </div>
-
 <div class="clear"></div>
 </article>
 <!-- 게시판 -->

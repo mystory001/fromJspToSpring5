@@ -6,7 +6,7 @@
 
 	<insert id="insertBoard">
 		insert into board
-		values(#{num},#{name},#{subject},#{content},#{readCount},#{date})
+		values(#{num},#{name},#{subject},#{content},#{readCount},#{date},#{file})
 	</insert>
 
 	<select id="getBoardList" resultType="com.mystory001.domain.BoardDTO">
@@ -34,5 +34,16 @@
 		select count(*)
 		from board
 	</select>
+	
+	<update id="updateBoard">
+		update board
+		set subject=#{subject}, content=#{content} <!-- or 사용 ㄴㄴ -->
+		where num = #{num}
+	</update>
+	
+	<delete id="deleteBoard">
+		delete from board
+		where num = #{num}
+	</delete>
 
 </mapper>

@@ -26,5 +26,17 @@
 	<context:component-scan base-package="com.mystory001.service" />
 	<context:component-scan base-package="com.mystory001.dao" />
 	
+	<!-- 파일 업로드 객체 생성, 업로드 파일 크기 지정(10MB) -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760"></beans:property>
+	</beans:bean>
+	
+	<!-- 서버에 있는 파일 업로드 폴더 지정 : src/main/webapp/resources/upload 
+		 폴더 물리적인 경로 => C:\Users\User\workspace_sts\spring3\src\main\webapp\resources\upload
+		 \는 특수문자로 받아들이므로 이스케이프 문자로 구분해줘야함
+	-->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="C:\\Users\\User\\workspace_sts\\spring3\\src\\main\\webapp\\resources\\upload"></beans:constructor-arg>
+	</beans:bean>
 	
 </beans:beans>

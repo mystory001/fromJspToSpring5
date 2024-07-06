@@ -32,6 +32,28 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		
+		
+		<!-- 파일 업로드 프로그램 설치 commons-fileupload, commons-io, javax-annotation 설치-->
+		<!-- Apache Commons fileupload 1.3.1-->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.3.1</version>
+		</dependency>
+		<!-- Apache Commons IO 2.4-->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.4</version>
+		</dependency>
+		<!-- Jakarta Annotations API	2.1.1 -->
+		<!-- https://mvnrepository.com/artifact/jakarta.annotation/jakarta.annotation-api -->
+		<dependency>
+		    <groupId>jakarta.annotation</groupId>
+		    <artifactId>jakarta.annotation-api</artifactId>
+		    <version>1.3.5</version>
+		</dependency>
 
 		<!-- MySQL Connector/J 8.0.33 -->
 		<!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
