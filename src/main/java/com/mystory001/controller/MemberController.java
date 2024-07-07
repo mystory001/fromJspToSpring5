@@ -1,6 +1,7 @@
 package com.mystory001.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mystory001.domain.MemberDTO;
 import com.mystory001.service.MemberService;
@@ -95,6 +97,21 @@ public class MemberController {
 		} else {
 			return "redirect:/member/update";
 		}
+	}
+	
+	@GetMapping("/idCheck")
+	@ResponseBody
+	public String idCheck(MemberDTO memberDTO, HttpServletResponse response) {
+		System.out.println("MemberController idCheck()");
+		
+		MemberDTO memberDTO2 = memberService.getMember(memberDTO.getId());
+		String result = "";
+		if(memberDTO2!=null) {
+			result="iddup";
+		} else {
+			result="idok";
+		}
+		return result;
 	}
 	
 	

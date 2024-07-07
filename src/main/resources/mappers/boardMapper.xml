@@ -5,7 +5,7 @@
 <mapper namespace="com.mystory001.mappers.boardMapper">
 
 	<insert id="insertBoard">
-		insert into board
+		insert into board(num, name, subject, content, readCount, date, file)
 		values(#{num},#{name},#{subject},#{content},#{readCount},#{date},#{file})
 	</insert>
 
@@ -45,5 +45,11 @@
 		delete from board
 		where num = #{num}
 	</delete>
-
+	
+	<update id="fupdateBoard">
+		update board
+		set subject=#{subject}, content=#{content}, file=#{file}
+		where num = #{num}
+	</update>
+	
 </mapper>

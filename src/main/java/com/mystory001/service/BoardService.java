@@ -70,5 +70,10 @@ public class BoardService {
 		System.out.println("BoardService deleteBoard()");
 		boardDAO.deleteBoard(boardDTO);
 	}
-	
+
+	public void fupdateBoard(BoardDTO boardDTO) {
+		System.out.println("BoardService fupdateBoard()");
+		boardDAO.fupdateBoard(boardDTO);
+	}
+
 }

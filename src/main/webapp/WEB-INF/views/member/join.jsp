@@ -21,6 +21,7 @@
 
  </script>
  <![endif]-->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -50,6 +51,7 @@
 <label>User ID</label>
 <input type="text" name="id" class="id">
 <input type="button" value="중복확인" class="dup"><br>
+<div id="dupdiv"></div><br>
 <label>Password</label>
 <input type="password" name="pw"><br>
 <label>Password 확인</label>
@@ -85,6 +87,26 @@
 <!-- 푸터들어가는 곳 -->
 <jsp:include page="../inc/bottom.jsp" />
 <!-- 푸터들어가는 곳 -->
+<script type="text/javascript">
+	$(function(){
+		//대상.함수()
+		$(".dup").click(function(){
+			$.ajax({
+				//속성 : 값, 속성 : 값,...
+				url:'${pageContext.request.contextPath}/member/idCheck',
+				data : {'id':$('.id').val()}, //data : {이름:값, 이름:값}
+				success : function(result){
+					if(result=="iddup"){
+						result = "사용불가능한 아이디입니다.";
+					}else{
+						result = "사용가능한 아이디입니다.";
+					}
+					$('#dupdiv').html(result);
+				}
+			});
+		});
+	});
+</script>
 </div>
 </body>
 </html>

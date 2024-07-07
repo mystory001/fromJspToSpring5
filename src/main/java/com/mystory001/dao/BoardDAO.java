@@ -58,4 +58,10 @@ public class BoardDAO {
 		sqlSession.delete(namespace+".deleteBoard", boardDTO);
 	}
 
+	public void fupdateBoard(BoardDTO boardDTO) {
+		System.out.println("BoardDAO fupdateBoard()");
+		sqlSession.update(namespace+".fupdateBoard", boardDTO);
+	}
+
+
 }

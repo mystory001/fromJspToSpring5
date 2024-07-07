@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- => 날짜 모양 변경 태그 라이브러리 -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/fnotice</title>
+<title>center/fupdate.jsp</title>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -41,58 +39,33 @@
 
 <!-- 게시판 -->
 <article>
-<h1>File Notice</h1>
+<h1>File Update Notice</h1>
+<!-- 첨부파일 form => post방식을 이용할 것 -->
+<form action="${pageContext.request.contextPath}/board/fupdatePro" method="post" enctype="multipart/form-data">
+<input type="hidden" name="num" value="${boardDTO.num }">
 <table id="notice">
-<tr><th class="tno">No.</th>
-    <th class="ttitle">Title</th>
-    <th class="twrite">Writer</th>
-    <th class="twrite">File</th>
-    <th class="tdate">Date</th>
-    <th class="tread">Read</th></tr>
-
-<c:forEach var="boardDTO" items="${boardList}">
-<tr onclick="location.href='${pageContext.request.contextPath}/board/fcontent?num=${boardDTO.num}'">
-	<td>${boardDTO.num}</td>
-	<td class="left">${boardDTO.subject}</td>
-    <td>${boardDTO.name}</td>
-    <td>${boardDTO.file }</td>
-    <td><fmt:formatDate value="${boardDTO.date}" pattern="yyyy-MM-dd"/></td>
-    <td>${boardDTO.readcount}</td></tr>
-
-</c:forEach>
-
+<!-- 글쓴이 : 로그인 값 -->
+<tr><td>글쓴이</td><td><input type="text" name="name" value="${sessionScope.id}" readonly></td></tr>
+<!-- input name, value에 값을 넣어줘야 서버로 넘어감 -->
+<tr><td>글제목</td><td><input type="text" name="subject" value="${boardDTO.subject }" required></td></tr>
+<tr><td>첨부파일</td><td>새 파일 : <input type="file" name="file" ><br>
+					  기존 파일 이름 : ${boardDTO.file}
+<!-- 				  숨겨서 기존 파일 이름을 들고감  -->
+<input type="hidden" name="oldfile" value="${boardDTO.file }"></td></tr>
+<tr><td>글내용</td><td><textarea name="content" rows="10" cols="20">${boardDTO.content }</textarea></td></tr>
 </table>
 
-<!-- 로그인을 하지 않으면 글쓰기 버튼이 보이지 않게 설정 -->
-<c:if test="${!empty sessionScope.id }">
 <div id="table_search">
 <!-- location 자바스크립트 내장 객체 => 웹 브라우저 주소줄을 객체로 정의
      location 내장객체 멤버 변수 => href 변수 : 웹 브라우저 주소줄 내용을 저장하고 있는 변수
 						  => href 변수 내용이 변경되어지면 웹 브라우저 주소도 변경 
 						  location.href='${pageContext.request.contextPath}/board/write -->
-<input type="button" value="글쓰기" class="btn" onclick="location.href='${pageContext.request.contextPath}/board/fwrite'">
+<input type="submit" value="글수정" class="btn">
+<input type="button" value="글목록" class="btn" onclick="location.href='${pageContext.request.contextPath}/board/flist'">
 </div>
-</c:if>
+</form>
 
-<div id="table_search">
-<input type="text" name="search" class="input_box">
-<input type="button" value="search" class="btn">
-</div>
 <div class="clear"></div>
-<div id="page_control">
-<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
-<a href="${pageContext.request.contextPath}/board/flist?pageNum=${pageDTO.startPage - pageDTO.pageBlock}">Prev</a>
-</c:if>
-
-<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-<a href="${pageContext.request.contextPath}/board/flist?pageNum=${i}">${i}</a>
-</c:forEach>
-
-<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-<a href="${pageContext.request.contextPath}/board/flist?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">Next</a>
-</c:if>
-
-</div>
 </article>
 <!-- 게시판 -->
 <!-- 본문들어가는 곳 -->

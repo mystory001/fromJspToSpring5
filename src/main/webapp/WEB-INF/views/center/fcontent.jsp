@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/fwrite</title>
+<title>center/fcontent</title>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -38,34 +39,29 @@
 <!-- 왼쪽메뉴 -->
 
 <!-- 게시판 -->
-<!-- 
-파일 첨부 시 form 태그에 enctype 속성을 이용. (enctype="multipart/form-data : 모든 문자를 인코딩하지 않음을 명시, form 요소가 파일이나 이미지를 서버로 전송할때 사용)
-enctype의 method는 post인 경우에만 사용 가능함.
-
-이외의 enctype속성으로는 application/x-www-form-urlencoded(모든 문자들은 서버로 보내기 전 인코딩됨을 명시. 기본값), text/plain(공백 문자는 + 기호로 변환하지만, 나머지 문자는 모두 인코딩되지 않음을 명시)
--->
-
 <article>
-<h1>File Write Notice</h1>
-<form action="${pageContext.request.contextPath}/board/fwritePro" method="post" enctype="multipart/form-data">
+<h1>File Content Notice</h1>
 <table id="notice">
-<!-- 글쓴이 : 로그인 값 -->
-<tr><td>글쓴이</td><td><input type="text" name="name" value="${sessionScope.id}" readonly></td></tr>
-<!-- input name, value에 값을 넣어줘야 서버로 넘어감 -->
-<tr><td>글제목</td><td><input type="text" name="subject" required></td></tr>
-<tr><td>첨부파일</td><td><input type="file" name="file" required></td></tr>
-<tr><td>글내용</td><td><textarea name="content" rows="10" cols="20"></textarea></td></tr>
+<tr><td>글번호</td><td>${boardDTO.num}</td></tr>
+<tr><td>글쓴이</td><td>${boardDTO.name}</td></tr>
+<tr><td>조회수</td><td>${boardDTO.readCount}</td></tr>
+<tr><td>작성일</td><td>${boardDTO.date}</td></tr>
+<tr><td>글제목</td><td>${boardDTO.subject}</td></tr>
+<tr><td>첨부파일</td><td><a href="${pageContext.request.contextPath}/resources/upload/${boardDTO.file}" download>${boardDTO.file}</a><img src="${pageContext.request.contextPath}/resources/upload/${boardDTO.file}" width="100" height="100"></td></tr>
+<tr><td>글내용</td><td>${boardDTO.content}</td></tr>
 </table>
 
 <div id="table_search">
-<!-- location 자바스크립트 내장 객체 => 웹 브라우저 주소줄을 객체로 정의
-     location 내장객체 멤버 변수 => href 변수 : 웹 브라우저 주소줄 내용을 저장하고 있는 변수
-						  => href 변수 내용이 변경되어지면 웹 브라우저 주소도 변경 
-						  location.href='${pageContext.request.contextPath}/board/write -->
-<input type="submit" value="글쓰기" class="btn">
+<c:if test="${! empty sessionScope.id }">
+	<c:if test="${sessionScope.id eq boardDTO.name }">
+		<input type="button" value="글수정" class="btn" onclick="location.href='${pageContext.request.contextPath}/board/fupdate?num=${boardDTO.num}'">
+		<input type="button" value="글삭제" class="btn" onclick="location.href='${pageContext.request.contextPath}/board/fdelete?num=${boardDTO.num}'">
+	</c:if>
+</c:if>
+
 <input type="button" value="글목록" class="btn" onclick="location.href='${pageContext.request.contextPath}/board/flist'">
+
 </div>
-</form>
 
 <div class="clear"></div>
 </article>

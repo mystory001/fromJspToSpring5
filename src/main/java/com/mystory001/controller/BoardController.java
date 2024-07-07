@@ -14,6 +14,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mystory001.domain.BoardDTO;
@@ -134,6 +135,12 @@ public class BoardController {
 	@javax.annotation.Resource(name="uploadPath")
 	private String uploadPath;
 	
+	@GetMapping("/flist")
+	public String flist() {
+		System.out.println("BoardController flist()");
+		return "center/fnotice";
+	}
+	
 	@GetMapping("/fwrite")
 	public String fwrite() {
 		System.out.println("BoardController fwrite()");
@@ -160,6 +167,60 @@ public class BoardController {
 		boardDTO.setContent(request.getParameter("content"));
 		boardDTO.setFile(fileName);
 		boardService.insertBoard(boardDTO);
+		return "redirect:/board/flist";
+	}
+	
+	@GetMapping("/fcontent")
+	public String fcontent(BoardDTO boardDTO, Model model) {
+		System.out.println("BoardController fcontent()");
+		boardService.updateReadCount(boardDTO); //조회수 증가
+		
+		boardDTO = boardService.getBoard(boardDTO);
+		
+		model.addAttribute("boardDTO", boardDTO);
+		
+		return "/center/fcontent";
+	}
+	
+	@GetMapping("/fupdate")
+	public String fupdate(BoardDTO boardDTO, Model model) {
+		System.out.println("BoardController fupdate()");
+		boardDTO = boardService.getBoard(boardDTO);
+		model.addAttribute("boardDTO",boardDTO);
+		return "/center/fupdate";
+	}
+	
+	
+	@PostMapping("/fupatePro")
+	public String fupdatePro(HttpServletRequest request, MultipartFile file) throws Exception{
+		System.out.println("BoardController fupdatePro()");
+		BoardDTO boardDTO = new BoardDTO();
+		boardDTO.setNum(Integer.parseInt(request.getParameter("num")));
+		boardDTO.setName(request.getParameter("name"));
+		boardDTO.setSubject(request.getParameter("subject"));
+		boardDTO.setContent(request.getParameter("content"));
+		
+		if(file.isEmpty()) {
+			System.out.println("첨부파일이 존재하지 않음");
+			boardDTO.setFile(request.getParameter("file"));
+		} else {
+			System.out.println("첨부파일이 존재함");
+			UUID uuid = UUID.randomUUID();
+			String filename = uuid.toString()+"_"+file.getOriginalFilename();
+			
+			FileCopyUtils.copy(filename.getBytes(), new File(uploadPath,filename));
+			boardDTO.setFile(filename);
+		}
+		
+		boardService.fupdateBoard(boardDTO);
+		
+		return "redirect:/board/flist";
+	}
+	
+	@GetMapping("/fdelete")
+	public String fdelete(BoardDTO boardDTO) {
+		System.out.println("BoardController fdelete()");
+		boardService.deleteBoard(boardDTO);
 		return "redirect:/board/flist";
 	}
 	
