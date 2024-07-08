@@ -32,6 +32,9 @@ public class BoardController {
 	public String list(HttpServletRequest request, PageDTO pageDTO, Model model) {
 		System.out.println("BoardController list()");
 		
+		//검색어 가져오기
+		String search = request.getParameter("search");
+		
 		//한 화면에 보여줄 글의 개수 설정
 		int pageSize = 5;
 		//pageNum에 파라미터 값을 가져오기
@@ -47,6 +50,7 @@ public class BoardController {
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setSearch(search);
 		
 		List<BoardDTO> boardList = boardService.getBoardList(pageDTO);
 
@@ -136,8 +140,39 @@ public class BoardController {
 	private String uploadPath;
 	
 	@GetMapping("/flist")
-	public String flist() {
+	public String flist(HttpServletRequest request, PageDTO pageDTO, Model model) {
 		System.out.println("BoardController flist()");
+		
+		//한 화면에 보여줄 글의 개수 설정
+		int pageSize = 5;
+		String pageNum = request.getParameter("pageNum"); //request에서 값을 받아옴
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		
+		List<BoardDTO> boardList = boardService.getBoardList(pageDTO);
+		
+		int count = boardService.getBoardCount(pageDTO); //전체 글의 개수
+		int pageBlock = 10; //한 화면에 보여줄 페이지 개수
+		int startPage = (currentPage - 1)/pageBlock*pageBlock+1; //한 화면에 보여줄 시작 페이지
+		int endPage = startPage + pageBlock -1; //한 화면에 보여줄 끝 페이지 구하기
+		int pageCount = count/pageSize + (count%pageSize==0?0:1);
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		
+		model.addAttribute("pageDTO", pageDTO);
+		model.addAttribute("boardList",boardList);
+		
 		return "center/fnotice";
 	}
 	

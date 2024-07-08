@@ -99,20 +99,4 @@ public class MemberController {
 		}
 	}
 	
-	@GetMapping("/idCheck")
-	@ResponseBody
-	public String idCheck(MemberDTO memberDTO, HttpServletResponse response) {
-		System.out.println("MemberController idCheck()");
-		
-		MemberDTO memberDTO2 = memberService.getMember(memberDTO.getId());
-		String result = "";
-		if(memberDTO2!=null) {
-			result="iddup";
-		} else {
-			result="idok";
-		}
-		return result;
-	}
-	
-	
 }

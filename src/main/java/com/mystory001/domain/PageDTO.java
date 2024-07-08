@@ -2,6 +2,7 @@ package com.mystory001.domain;
 
 public class PageDTO {
 
+
 	private int pageSize; //글의 개수
 	private int currentPage;
 	private String pageNum;
@@ -15,6 +16,15 @@ public class PageDTO {
 	
 	private int count; //전체 글의 개수
 	private int pageCount; //전체 페이지 개수
+	
+	private String search; //검색어
+	
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
 
 	public int getPageSize() {
 		return pageSize;
