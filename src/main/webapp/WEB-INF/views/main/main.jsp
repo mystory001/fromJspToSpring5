@@ -76,16 +76,16 @@ quis ante......</dd>
 <div id="news_notice">
 <h3 class="brown">News &amp; Notice</h3>
 <table>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
+<!-- <tr><td class="contxt"><a href="#">Vivans....</a></td> -->
+<!--     <td>2012.11.02</td></tr> -->
+<!-- <tr><td class="contxt"><a href="#">Vivans....</a></td> -->
+<!--     <td>2012.11.02</td></tr> -->
+<!-- <tr><td class="contxt"><a href="#">Vivans....</a></td> -->
+<!--     <td>2012.11.02</td></tr> -->
+<!-- <tr><td class="contxt"><a href="#">Vivans....</a></td> -->
+<!--     <td>2012.11.02</td></tr> -->
+<!-- <tr><td class="contxt"><a href="#">Vivans....</a></td> -->
+<!--     <td>2012.11.02</td></tr> -->
 </table>
 </div>
 </article>
@@ -107,10 +107,13 @@ ex) <member>
  {"id":"bbb","pw":"1234","name":"bbb"},
  {"id":"ccc","pw":"1234","name":"ccc"}]
  -->
+</div>
  <script type="text/javascript">
  	$(function(){
  		$('.brown').click(function(){
+ 			$('table').html('');
  			$.ajax({
+ 				type : 'get',
  				url : '${pageContext.request.contextPath}/board/listjson',
  				dataType : 'json',
  				success : function(result){
@@ -127,13 +130,12 @@ ex) <member>
  						//item.date 숫자 → 날짜 변경
  						var date = new Date(item.date);
  						var d = date.getFullYear()+"."+(date.getMonth()+1)+"."+date.getDate();
- 						$('table').append('<tr><td class="contexxt"><a href="#">'+item.subject+'</a></td><td>'+d+'</td></tr>');
+ 						$('table').append('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+d+'</td></tr>');
  					})
  				}
  			})
  		})
  	})
  </script>
-</div>
 </body>
 </html>

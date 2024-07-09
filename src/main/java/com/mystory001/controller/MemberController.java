@@ -4,6 +4,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -97,6 +99,24 @@ public class MemberController {
 		} else {
 			return "redirect:/member/update";
 		}
+	}
+	
+	@GetMapping("/idCheck")
+	public ResponseEntity<String> idCheck(MemberDTO memberDTO, HttpServletResponse response) { //ResponseEntity httpEntity를 상속받는, 결과 데이터와 HTTP 상태 코드를 직접 제어할 수 있는 클래스
+		System.out.println("MemberController idCheck()");
+		
+		MemberDTO memberDTO2 = memberService.getMember(memberDTO.getId());
+		String result = "";
+		if(memberDTO2!=null) {
+			result="iddup";
+		} else {
+			result="idok";
+		}
+		
+		//return 이동할 주소 → AJAX 처리 return 출력 결과 반환 → 출력 결과 응답
+		//출력 결과를 가지고 join.jsp로 이동(안정적) → ResponseEntity
+		ResponseEntity<String> entity = new ResponseEntity<String>(result,HttpStatus.OK);
+		return entity;
 	}
 	
 }

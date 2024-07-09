@@ -57,7 +57,7 @@
     <td>${boardDTO.name}</td>
     <td>${boardDTO.file }</td>
     <td><fmt:formatDate value="${boardDTO.date}" pattern="yyyy-MM-dd"/></td>
-    <td>${boardDTO.readcount}</td></tr>
+    <td>${boardDTO.readCount}</td></tr>
 
 </c:forEach>
 
@@ -81,15 +81,15 @@
 <div class="clear"></div>
 <div id="page_control">
 <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
-<a href="${pageContext.request.contextPath}/board/flist?pageNum=${pageDTO.startPage - pageDTO.pageBlock}">Prev</a>
+<a href="${pageContext.request.contextPath}/board/flist?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}">Prev</a>
 </c:if>
 
 <c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-<a href="${pageContext.request.contextPath}/board/flist?pageNum=${i}">${i}</a>
+<a href="${pageContext.request.contextPath}/board/flist?pageNum=${i}&search=${pageDTO.search}">${i}</a>
 </c:forEach>
 
 <c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-<a href="${pageContext.request.contextPath}/board/flist?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">Next</a>
+<a href="${pageContext.request.contextPath}/board/flist?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}">Next</a>
 </c:if>
 
 </div>

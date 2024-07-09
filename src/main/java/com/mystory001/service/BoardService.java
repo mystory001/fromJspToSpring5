@@ -19,9 +19,9 @@ public class BoardService {
 
 	public void insertBoard(BoardDTO boardDTO) {
 		System.out.println("BoardService insertBoard()");
-		boardDTO.setNum(0);
+		boardDTO.setNum(boardDAO.getMaxNum()+1);
 		boardDTO.setDate(new Timestamp(System.currentTimeMillis()));
-		
+		boardDTO.setReadCount(0);
 		boardDAO.insertBoard(boardDTO);
 	}
 

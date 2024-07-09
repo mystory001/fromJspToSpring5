@@ -32,37 +32,37 @@ public class AjaxController {
 	@Inject
 	private BoardService boardService;
 	
-	@GetMapping("/member/idCheck")
-	public ResponseEntity<String> idCheck(MemberDTO memberDTO, HttpServletResponse response) { //ResponseEntity httpEntity를 상속받는, 결과 데이터와 HTTP 상태 코드를 직접 제어할 수 있는 클래스
-		System.out.println("MemberController idCheck()");
-		
-		MemberDTO memberDTO2 = memberService.getMember(memberDTO.getId());
-		String result = "";
-		if(memberDTO2!=null) {
-			result="iddup";
-		} else {
-			result="idok";
-		}
-		
-		//return 이동할 주소 → AJAX 처리 return 출력 결과 반환 → 출력 결과 응답
-		//출력 결과를 가지고 join.jsp로 이동(안정적) → ResponseEntity
-		ResponseEntity<String> entity = new ResponseEntity<String>(result,HttpStatus.OK);
-		return entity;
-	}
+//	@GetMapping("/member/idCheck")
+//	public ResponseEntity<String> idCheck(MemberDTO memberDTO, HttpServletResponse response) { //ResponseEntity httpEntity를 상속받는, 결과 데이터와 HTTP 상태 코드를 직접 제어할 수 있는 클래스
+//		System.out.println("MemberController idCheck()");
+//		
+//		MemberDTO memberDTO2 = memberService.getMember(memberDTO.getId());
+//		String result = "";
+//		if(memberDTO2!=null) {
+//			result="iddup";
+//		} else {
+//			result="idok";
+//		}
+//		
+//		//return 이동할 주소 → AJAX 처리 return 출력 결과 반환 → 출력 결과 응답
+//		//출력 결과를 가지고 join.jsp로 이동(안정적) → ResponseEntity
+//		ResponseEntity<String> entity = new ResponseEntity<String>(result,HttpStatus.OK);
+//		return entity;
+//	}
 	
-	@GetMapping("/board/listjson")
-	public ResponseEntity<List<BoardDTO>> listjson(){
-		System.out.println("AjaxController listjson()");
-		//한 화면에 보여줄 최근 글의 개수 5개
-		int pageSize = 5;
-		//현 페이이지 1페이지 설정
-		int currentPage=1;
-		PageDTO pageDTO = new PageDTO();
-		pageDTO.setPageSize(pageSize);
-		pageDTO.setCurrentPage(currentPage);
-		List<BoardDTO> boardList = boardService.getBoardList(pageDTO);
-		ResponseEntity<List<BoardDTO>> entity = new ResponseEntity<List<BoardDTO>>(boardList,HttpStatus.OK);
-		return entity;
-	}
+//	@GetMapping("/board/listjson")
+//	public ResponseEntity<List<BoardDTO>> listjson(){
+//		System.out.println("AjaxController listjson()");
+//		//한 화면에 보여줄 최근 글의 개수 5개
+//		int pageSize = 5;
+//		//현 페이이지 1페이지 설정
+//		int currentPage=1;
+//		PageDTO pageDTO = new PageDTO();
+//		pageDTO.setPageSize(pageSize);
+//		pageDTO.setCurrentPage(currentPage);
+//		List<BoardDTO> boardList = boardService.getBoardList(pageDTO);
+//		ResponseEntity<List<BoardDTO>> entity = new ResponseEntity<List<BoardDTO>>(boardList,HttpStatus.OK);
+//		return entity;
+//	}
 
 }
