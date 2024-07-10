@@ -6,5 +6,6 @@
 <!-- <li><a href="#">Public News</a></li> -->
 <li><a href="${pageContext.request.contextPath}/board/flist">File Content</a></li>
 <!-- <li><a href="#">Service Policy</a></li> -->
+<li><a href="${pageContext.request.contextPath}/reboard/list">1:1문의</a></li>
 </ul>
 </nav>

@@ -12,15 +12,22 @@ public class BoardDTO {
 	private Timestamp date;
 	private String file;
 	
+	//답글 객체
+	private int re_ref;
+	private int re_lev;
+	private int re_seq;
+	
 	//alt + shift + s : s
-	@Override
-	public String toString() {
-		return "BoardDTO [num=" + num + ", name=" + name + ", subject=" + subject + ", content=" + content
-				+ ", readCount=" + readCount + ", date=" + date + ", file=" + file + "]";
-	}
+	
 
 	public int getNum() {
 		return num;
+	}
+	@Override
+	public String toString() {
+		return "BoardDTO [num=" + num + ", name=" + name + ", subject=" + subject + ", content=" + content
+				+ ", readCount=" + readCount + ", date=" + date + ", file=" + file + ", re_ref=" + re_ref + ", re_lev="
+				+ re_lev + ", re_seq=" + re_seq + "]";
 	}
 	public void setNum(int num) {
 		this.num = num;
@@ -60,6 +67,24 @@ public class BoardDTO {
 	}
 	public void setFile(String file) {
 		this.file = file;
+	}
+	public int getRe_ref() {
+		return re_ref;
+	}
+	public void setRe_ref(int re_ref) {
+		this.re_ref = re_ref;
+	}
+	public int getRe_lev() {
+		return re_lev;
+	}
+	public void setRe_lev(int re_lev) {
+		this.re_lev = re_lev;
+	}
+	public int getRe_seq() {
+		return re_seq;
+	}
+	public void setRe_seq(int re_seq) {
+		this.re_seq = re_seq;
 	}
 	
 }
