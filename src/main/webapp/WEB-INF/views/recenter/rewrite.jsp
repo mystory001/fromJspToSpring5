@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/content.jsp</title>
+<title>Insert title here</title>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -40,28 +39,28 @@
 
 <!-- 게시판 -->
 <article>
-<h1>답글 게시판 Content Notice</h1>
+<h1>답글 게시판 Rewrite Notice</h1>
+<form action="${pageContext.request.contextPath}/reboard/rewritePro" method="post">
+<input type="hidden" name="re_ref" value="${boardDTO.re_ref}">
+<input type="hidden" name="re_lev" value="${boardDTO.re_lev}">
+<input type="hidden" name="re_seq" value="${boardDTO.re_seq}">
 <table id="notice">
-<tr><td>글번호</td><td>${boardDTO.num}</td></tr>
-<tr><td>글쓴이</td><td>${boardDTO.name}</td></tr>
-<tr><td>조회수</td><td>${boardDTO.readCount}</td></tr>
-<tr><td>작성일</td><td>${boardDTO.date}</td></tr>
-<tr><td>글제목</td><td>${boardDTO.subject}</td></tr>
-<tr><td>글내용</td><td>${boardDTO.content}</td></tr>
+<!-- 글쓴이 : 로그인 값 -->
+<tr><td>글쓴이</td><td><input type="text" name="name" value="${sessionScope.id}" readonly></td></tr>
+<!-- input name, value에 값을 넣어줘야 서버로 넘어감 -->
+<tr><td>글제목</td><td><input type="text" name="subject" value="[답글]" required></td></tr>
+<tr><td>글내용</td><td><textarea name="content" rows="10" cols="20"></textarea></td></tr>
 </table>
 
 <div id="table_search">
-<c:if test="${! empty sessionScope.id }">
-		<input type="button" value="답글 쓰기" class="btn" onclick="location.href='${pageContext.request.contextPath}/reboard/rewrite?num=${boardDTO.num}'">
-	<c:if test="${sessionScope.id eq boardDTO.name }">
-		<input type="button" value="글수정" class="btn" onclick="location.href='${pageContext.request.contextPath}/reboard/update?num=${boardDTO.num}'">
-		<input type="button" value="글삭제" class="btn" onclick="location.href='${pageContext.request.contextPath}/reboard/delete?num=${boardDTO.num}'">
-	</c:if>
-</c:if>
-
+<!-- location 자바스크립트 내장 객체 => 웹 브라우저 주소줄을 객체로 정의
+     location 내장객체 멤버 변수 => href 변수 : 웹 브라우저 주소줄 내용을 저장하고 있는 변수
+						  => href 변수 내용이 변경되어지면 웹 브라우저 주소도 변경 
+						  location.href='${pageContext.request.contextPath}/board/write -->
+<input type="submit" value="답글 쓰기" class="btn">
 <input type="button" value="글목록" class="btn" onclick="location.href='${pageContext.request.contextPath}/reboard/list'">
-
 </div>
+</form>
 
 <div class="clear"></div>
 </article>

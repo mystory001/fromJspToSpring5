@@ -49,14 +49,19 @@
     <th class="tdate">Date</th>
     <th class="tread">Read</th></tr>
 
-<c:forEach var="boardDTO" items="${boardList}">
-<tr onclick="location.href='${pageContext.request.contextPath}/reboard/content?num=${boardDTO.num}'">
-	<td>${boardDTO.num}</td>
-	<td class="left">${boardDTO.subject}</td>
-    <td>${boardDTO.name}</td>
+<c:forEach var="boardMap" items="${boardList}">
+<tr onclick="location.href='${pageContext.request.contextPath}/reboard/content?num=${boardMap.num}'">
+	<td>${boardMap.num}</td>
+	<td class="left">
+	<c:if test="${boardMap.re_lev >0}">
+		<img src="${pageContext.request.contextPath}/resources/images/recenter/level.gif" width="${boardMap.re_lev * 10 }">
+		<img src="${pageContext.request.contextPath}/resources/images/recenter/re.gif">
+	</c:if>
+	${boardMap.subject}</td>
+    <td>${boardMap.name}</td>
     
-    <td><fmt:formatDate value="${boardDTO.date}" pattern="yyyy-MM-dd"/></td>
-    <td>${boardDTO.readCount}</td></tr>
+    <td><fmt:formatDate value="${boardMap.date}" pattern="yyyy-MM-dd"/></td>
+    <td>${boardMap.readCount}</td></tr>
 
 </c:forEach>
 

@@ -19,7 +19,7 @@ public class ReboardService {
 	@Inject
 	private ReboardDAO reboardDAO;
 	
-	public List<BoardDTO> getBoardList(PageDTO pageDTO){
+	public List<Map<String, Object>> getBoardList(PageDTO pageDTO){
 		System.out.println("ReboardService getBoardList()");
 		//currentPage, pageSize를 이용해서 시작 행(startRow) 번호, 끝나는 행(endRow) 구하기
 		int currentPage = pageDTO.getCurrentPage();
@@ -48,13 +48,44 @@ public class ReboardService {
 			param.put("num", reboardDAO.getMaxNum()+1);
 			param.put("re_ref", reboardDAO.getMaxNum()+1); //답글 관련 기준 글 번호 → 그룹 번호 일치
 		}
-		
 		param.put("readCount", 0);
 		param.put("date", new Timestamp(System.currentTimeMillis()));
 		param.put("re_lev", 0); //들여쓰기 0
 		param.put("re_seq", 0); //순서 값
 		
+		reboardDAO.insertBoard(param);
+	}
+
+	public BoardDTO getBoard(BoardDTO boardDTO) {
+		System.out.println("ReboardService getBoard()");
+		return reboardDAO.getBoard(boardDTO);
+	}
+
+	public void updateReadCount(BoardDTO boardDTO) {
+		System.out.println("ReboardService updateReadCount()");
 		
+		int readCount = boardDTO.getReadCount()+1;
+		boardDTO.setReadCount(readCount);
+		reboardDAO.updateReadCount(boardDTO);
+	}
+
+	public void reInsertBoard(Map<String, Object> param) {
+		System.out.println("ReboardService reInsertBoard()");
+		//param → name, subject, content, re_ref, re_lev, re_seq
+		if(reboardDAO.getMaxNum() ==null ) {
+			param.put("num", 1);
+		} else {
+			param.put("num", reboardDAO.getMaxNum() + 1);
+		}
+		param.put("readCount", 0);
+		param.put("date", new Timestamp(System.currentTimeMillis()));
+		
+		//기존 답글의 순서 재배치
+		reboardDAO.updateResql(param);
+		
+		param.put("re_lev", Integer.parseInt(param.get("re_lev").toString())+1); //들여쓰기 기존값 + 1
+		param.put("re_seq", Integer.parseInt(param.get("re_seq").toString())+1); //순서 값 기존값 + 1
+		System.out.println(param);
 		reboardDAO.insertBoard(param);
 	}
 

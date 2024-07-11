@@ -41,7 +41,7 @@ public class ReboardController {
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setCurrentPage(currentPage);
 		
-		List<BoardDTO> boardList = reboardService.getBoardList(pageDTO);
+		List<Map<String, Object>> boardList = reboardService.getBoardList(pageDTO);
 		
 		int count = reboardService.getBoardCount(pageDTO); //전체 글의 개수
 		int pageBlock = 10; //한 화면에 보여줄 페이지 수 설정
@@ -75,6 +75,32 @@ public class ReboardController {
 		System.out.println(param);
 		
 		reboardService.insertBoard(param);
+		return "redirect:/reboard/list";
+	}
+	
+	@GetMapping("/content")
+	public String content(BoardDTO boardDTO, Model model) {
+		System.out.println("ReboardController content()");
+		reboardService.updateReadCount(boardDTO); //조회수 증가
+		boardDTO = reboardService.getBoard(boardDTO);
+		model.addAttribute("boardDTO",boardDTO);
+		return "recenter/content";
+	}
+	
+	@GetMapping("/rewrite")
+	public String rewrite(BoardDTO boardDTO, Model model) {
+		System.out.println("ReboardController rewrite()");
+		boardDTO = reboardService.getBoard(boardDTO);
+		model.addAttribute("boardDTO", boardDTO);
+		return "recenter/rewrite";
+	}
+	
+	@PostMapping("/rewritePro")
+	public String rewritePro(@RequestParam Map<String, Object> param) { //@RequestParam 형태<키,값>이름
+		System.out.println("ReboardController rewritePro()");
+		System.out.println(param);
+		
+		reboardService.reInsertBoard(param);
 		return "redirect:/reboard/list";
 	}
 
