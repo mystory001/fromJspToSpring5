@@ -21,6 +21,7 @@
 
  </script>
  <![endif]-->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -47,9 +48,9 @@
 <fieldset>
 <legend>Login Info</legend>
 <label>User ID</label>
-<input type="text" name="id"><br>
+<input type="text" name="id" class="id"><br>
 <label>Password</label>
-<input type="password" name="pw"><br>
+<input type="password" name="pw" class="pw"><br>
 </fieldset>
 <div class="clear"></div>
 <div id="buttons">
@@ -66,5 +67,23 @@
 <jsp:include page="../inc/bottom.jsp" />
 <!-- 푸터들어가는 곳 -->
 </div>
+<script type="text/javascript">
+	$(function(){
+		$('#join').submit(function(){
+			if($('.id').val()==null || $('.id').val()==''){
+				alert("아이디를 입력해주세요");
+				$('.id').foucs();
+				return false;
+			}
+			if($('.pw').val()==null || $('.pw').val()==''){
+				alert("비밀번호를 입력해주세요");
+				$('.pw').foucs();
+				return false;
+			}
+		})
+	})
+
+
+</script>
 </body>
 </html>

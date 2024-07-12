@@ -53,11 +53,11 @@
 <input type="button" value="중복확인" class="dup"><br>
 <div id="dupdiv"></div><br>
 <label>Password</label>
-<input type="password" name="pw"><br>
+<input type="password" name="pw" class="pw"><br>
 <label>Password 확인</label>
-<input type="password"><br>
+<input type="password" class="pwcheck"><br>
 <label>Name</label>
-<input type="text" name="name"><br>
+<input type="text" name="name" class="name"><br>
 </fieldset>
 
 <fieldset>
@@ -106,6 +106,37 @@
 			});
 		});
 	});
+	
+	$(function(){
+		//대상.함수()
+		$('#join').submit(function(){
+			if($('.id').val()==null ||$('.id').val()==''){
+				alert("아이디를 입력해주세요.");
+				$('.id').focus();
+				return false; //전송하지 못하게 함수를 호출한 곳으로 이동(되돌아가기)
+			}
+			if($('.pw').val()==null ||$('.pw').val()==''){
+				alert("비밀번호를 입력해주세요.");
+				$('.pw').focus();
+				return false; 
+			}
+			if($('.pwcheck').val()==null ||$('.pwcheck').val()==''){
+				alert("비밀번호 확인을 입력해주세요.");
+				$('.pwcheck').focus();
+				return false; 
+			}
+			if($('.name').val()==null ||$('.name').val()==''){
+				alert("이름를 입력해주세요.");
+				$('.name').focus();
+				return false; 
+			}
+			if($('.pw').val !== $('.pwcheck')){
+				alert("비밀번호가 일치하지 않습니다.");
+				return false;
+			}
+		})
+	})	
+
 </script>
 </div>
 </body>
