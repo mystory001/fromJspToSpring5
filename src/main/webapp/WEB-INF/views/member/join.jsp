@@ -72,6 +72,16 @@
 <input type="text" name="phone"><br>
 <label>Mobile Phone Number</label>
 <input type="text" name="mobile"><br>
+<label>Gender</label>
+<input type="radio" name="gender" value="남" class="gender1">남
+<input type="radio" name="gender" value="여" class="gender2">여<br>
+<label>Grade</label>
+<select name="grade" class="grade">
+	<option value="">등급을 선택하세요</option>
+	<option value="1">1등급</option>
+	<option value="2">2등급</option>
+	<option value="3">3등급</option>
+</select><br>
 </fieldset>
 <div class="clear"></div>
 <div id="buttons">
@@ -134,9 +144,58 @@
 				alert("비밀번호가 일치하지 않습니다.");
 				return false;
 			}
+			
+			//정규표현식(RegExp) : 문자열을 처리하기 위한 패턴 기반의 문자열. 정규표현식을 통해 처리할 문자열의 패턴을 지정. 아이디,패스워드, 전화번호, 이메일 등 양식 검사. 모든 언어에 사용 가능. 네트워크, 서버 환경 설정 등 공용으로 사용하는 표현식
+			//[] : 하나 이상 포함, () : 안에 문자열 그대로 포함, {} : 문자열 반복,
+			//[a-zA-Z] : 영어만 입력, [0-9] : 숫자만 입력, [가-힣] : 한글만 입력
+			//^ : 시작하는 문자열, $ : 끝나는 문자열, . : 1개 문자, + : 반복, * : 0번 이상 반복, 
+			//? : 나올수도 있고 나오지 않을 수도 있는 문자열, | : 또는 포함되는 문자열
+			
+			//RegExp() : 정규표현식 표시 함수
+			//RegExp(/정규표현식내용/)
+			//아이디 : 영문 소문자, 숫자, 특수문자(-,_)만 입력 가능하며, 4~20자리 입력 체크
+			var idCheck = RegExp(/^[a-z0-9_\-]{4,20}$/); 
+			if(!idCheck.test($('.id').val())){
+				alert("아이디는 영문소문자, 숫자, 특수문자(-,_) 4~20자까지 가능합니다.");
+				$('.id').focus();
+				return false;
+			}
+			//비밀번호 : 영문 대소문자, 숫자, 특수문자(!@#$%^&*) 하나 이상 포함 4~20자리 입력 체크
+			var pwCheck = RegExp(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{4,20}$/);
+			if(!pwCheck.test($('.pw').val())){
+				alert("비밀번호는 영문 대소문자, 숫자, 특수문자가 하나 이상 포함되어야합니다.");
+				$('.pw').focus();
+				return false;
+			}
+			//이름 : 한글 2~20자
+			var nameCheck = RegExp(/^[가-힣]{2,20}$/);
+			if(!nameCheck.test($('.name').val())){
+				alert("이름 형식이 옳지 않습니다.");
+				$('.name').focus();
+				return false;
+			}
+			//이메일 : 아이디@주소
+//		 	var emailCheck = RegExp(/^[a-z0-9_\.\-]+@[a-z\-]+\.[a-z\-]/);
+//		 	if(!emailCheck.test($('.email').val())){
+//		 		alert("이메일 형식이 옳지 않습니다.");
+//		 		$('.email').focus();
+//		 		return false;
+//		 	}
+
+			//체크박스, 라디오 상자 제어
+			if($('.gender1').is(':checked')==false&&$('.gender2').is(':checked')==false){
+				alert("성별을 체크해주세요");
+				return false;
+			}
+			
+			//select 
+			if($('.grade').val()==""){
+				alert("등급을 선택해주세요");
+				$('.grade').focus();
+				return false;
+			}
 		})
 	})	
-
 </script>
 </div>
 </body>
