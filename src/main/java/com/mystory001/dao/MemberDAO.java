@@ -1,5 +1,7 @@
 package com.mystory001.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -35,6 +37,11 @@ public class MemberDAO {
 		System.out.println("MemberDAO updateMember()");
 		sqlSession.update(namespace+".updateMember", memberDTO);
 		
+	}
+
+	public List<MemberDTO> getMemberList() {
+		System.out.println("MemberDAO getMemberList()");
+		return sqlSession.selectList(namespace+".getMemberList");
 	}
 
 }

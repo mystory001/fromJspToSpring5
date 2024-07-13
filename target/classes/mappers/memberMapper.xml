@@ -32,5 +32,9 @@
 	 	set name = #{name}
 	 	where id = #{id}
 	 </update>
+	 
+	 <select id="getMemberList" resultType="com.mystory001.domain.MemberDTO">
+	 	select * from members
+	 </select>
 	 	 
 </mapper>

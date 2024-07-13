@@ -8,7 +8,11 @@
 </c:if>
 
 <c:if test="${! empty sessionScope.id }">
-<div id="login">${sessionScope.id }님 | <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a> | <a href="${pageContext.request.contextPath}/member/update">정보수정</a></div>
+<div id="login">${sessionScope.id }님 | <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a> | <a href="${pageContext.request.contextPath}/member/update">정보수정</a>
+<c:if test="${sessionScope.id eq 'admin' }">
+| <a href="${pageContext.request.contextPath }/member/list">회원 리스트</a>
+</c:if>
+</div>
 </c:if>
 
 <div class="clear"></div>

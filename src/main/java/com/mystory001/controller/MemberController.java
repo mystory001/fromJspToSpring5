@@ -1,5 +1,7 @@
 package com.mystory001.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -119,4 +121,18 @@ public class MemberController {
 		return entity;
 	}
 	
+	@GetMapping("list")
+	public String list() {
+		System.out.println("MemberController list()");
+		return "member/list";
+	}
+	
+	@GetMapping("/listjson")
+	public ResponseEntity<List<MemberDTO>> memberlistjson(){
+		System.out.println("MemberController memberlistjson()");
+		List<MemberDTO> memberList = memberService.getMemberList();
+		
+		ResponseEntity<List<MemberDTO>> entity = new ResponseEntity<List<MemberDTO>>(memberList,HttpStatus.OK);
+		return entity;
+	}
 }
